@@ -1,0 +1,61 @@
+{
+	"schemaVersion": 1,
+	"id": "illuminated",
+	"version": "${version}",
+	"name": "Illuminated",
+	"description": "Illuminate your world with a flashlight!",
+	"authors": [
+		{
+			"name":"Akarys",
+			"contact": {
+				"email": "ambre@akarys.me"
+			}
+		},
+		{
+			"name":"LambdAurora",
+			"contact": {
+				"homepage": "https://lambdaurora.dev",
+				"email": "email@lambdaurora.dev"
+			}
+		}
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/illuminated",
+		"sources": "https://github.com/LambdAurora/Illuminated",
+		"issues": "https://github.com/LambdAurora/Illuminated/issues"
+	},
+	"license": "Lambda License",
+	"icon": "assets/illuminated/textures/item/flashlight.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.lambdaurora.illuminated.client.IlluminatedClient::INSTANCE"
+		],
+		"main": [
+			"dev.lambdaurora.illuminated.Illuminated"
+		],
+		"dynamiclights": [
+			"dev.lambdaurora.illuminated.client.IlluminatedClient::INSTANCE"
+		]
+	},
+	"mixins": [
+		"illuminated.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"fabric": ">=0.110.3+1.21.4",
+		"minecraft": ">=1.21.4-",
+		"java": ">=21",
+		"lambdynlights": "^4.0.0-"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/illuminated",
+				"modmenu.discord": "https://discord.lambdaurora.dev/",
+				"modmenu.github_releases": "https://github.com/LambdAurora/Illuminated/releases",
+				"modmenu.modrinth": "https://modrinth.com/mod/illuminated"
+			}
+		}
+	}
+}

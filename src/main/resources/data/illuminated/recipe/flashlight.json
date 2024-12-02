@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" IG",
+		"ICI",
+		"RI "
+	],
+	"key": {
+		"I": "minecraft:iron_ingot",
+		"G": "minecraft:glass_pane",
+		"C": "minecraft:glowstone_dust",
+		"R": "minecraft:redstone"
+	},
+	"result": {
+		"id": "illuminated:flashlight",
+		"count": 1
+	}
+}

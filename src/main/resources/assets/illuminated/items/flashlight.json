@@ -1,0 +1,39 @@
+{
+	"model": {
+		"type": "minecraft:select",
+		"cases": [
+			{
+				"model":  {
+					"type": "minecraft:condition",
+					"on_false": {
+						"type": "minecraft:model",
+						"model": "illuminated:item/flashlight/off"
+					},
+					"on_true": {
+						"type": "minecraft:model",
+						"model": "illuminated:item/flashlight/on"
+					},
+					"property": "illuminated:on"
+				},
+				"when": [
+					"gui",
+					"ground",
+					"fixed"
+				]
+			}
+		],
+		"fallback": {
+			"type": "minecraft:condition",
+			"on_false": {
+				"type": "minecraft:model",
+				"model": "illuminated:item/flashlight/off_in_hand"
+			},
+			"on_true": {
+				"type": "minecraft:model",
+				"model": "illuminated:item/flashlight/on_in_hand"
+			},
+			"property": "illuminated:on"
+		},
+		"property": "minecraft:display_context"
+	}
+}

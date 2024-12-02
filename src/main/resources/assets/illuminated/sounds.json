@@ -1,0 +1,10 @@
+{
+	"item.flashlight.toggle": {
+		"sounds": [
+			"illuminated:item/flashlight/toggle1",
+			"illuminated:item/flashlight/toggle2",
+			"illuminated:item/flashlight/toggle3"
+		],
+		"subtitle": "subtitles.illuminated.item.flashlight.toggle"
+	}
+}

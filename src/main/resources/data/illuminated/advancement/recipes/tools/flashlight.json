@@ -1,0 +1,65 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_iron_ingot": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:iron_ingot"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_redstone": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:redstone"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_glowstone_dust": {
+			"conditions": {
+				"items": [
+					{
+						"items": "minecraft:glowstone_dust"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_flashlight": {
+			"conditions": {
+				"items": [
+					{
+						"items": "illuminated:flashlight"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "illuminated:flashlight"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_the_recipe",
+			"has_iron_ingot",
+			"has_redstone",
+			"has_glowstone_dust",
+			"has_flashlight"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"illuminated:flashlight"
+		]
+	}
+}
