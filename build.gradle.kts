@@ -239,6 +239,8 @@ fun parseReadme(project: Project): String {
 
 	readme = lines.joinToString("\n")
 	readme = readme.replace(linkRegex.toRegex(), "![\$1](https://raw.githubusercontent.com/LambdAurora/LambDynamicLights/1.21.4/\$2)")
+	readme = readme.replace("<!-- modrinth_only.start ", "")
+	readme = readme.replace(" modrinth_only.end -->", "")
 	return readme
 }
 
