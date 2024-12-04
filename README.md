@@ -6,7 +6,7 @@
 ![Environment: Both](https://img.shields.io/badge/environment-both-1976d2?style=flat-square)
 [![Mod loader: Fabric]][fabric]
 ![Version](https://img.shields.io/github/v/tag/LambdAurora/Illuminated?label=version&style=flat-square)
-![Version](https://img.shields.io/modrinth/v/illuminated?logo=modrinth&label=Modrinth&color=00ae5d&style=flat-square)
+[![Modrinth](https://img.shields.io/modrinth/v/illuminated?logo=modrinth&label=Modrinth&color=00ae5d&style=flat-square)](https://modrinth.com/mod/illuminated)
 [![CurseForge](http://cf.way2muchnoise.eu/title/1152506.svg)](https://www.curseforge.com/minecraft/mc-mods/illuminated)
 <!-- modrinth_exclude.end -->
 
