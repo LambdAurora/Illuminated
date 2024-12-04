@@ -203,7 +203,7 @@ fun getMcVersionString(): String {
 	return version[0] + "." + version[1]
 }
 
-fun getVersionType(): String {
+fun fetchVersionType(): String {
 	return if (this.isMcVersionNonRelease() || "-alpha." in VERSION) {
 		"alpha"
 	} else if ("-beta." in VERSION) {
@@ -214,7 +214,7 @@ fun getVersionType(): String {
 }
 
 fun parseReadme(project: Project): String {
-	val linkRegex = "!\\[([A-z_ ]+)]\\((assets\\/[A-z.\\/_]+)\\)"
+	val linkRegex = "!\\[(.+?)]\\((assets\\/[A-z.\\/_]+)\\)"
 
 	var readme = project.rootProject.file("README.md").readText()
 	val lines = readme.split("\n").toMutableList()
@@ -238,7 +238,7 @@ fun parseReadme(project: Project): String {
 	}
 
 	readme = lines.joinToString("\n")
-	readme = readme.replace(linkRegex.toRegex(), "![\$1](https://raw.githubusercontent.com/LambdAurora/LambDynamicLights/1.21.4/\$2)")
+	readme = readme.replace(linkRegex.toRegex(), "![\$1](https://raw.githubusercontent.com/LambdAurora/Illuminated/1.21.4/\$2)")
 	readme = readme.replace("<!-- modrinth_only.start ", "")
 	readme = readme.replace(" modrinth_only.end -->", "")
 	return readme
@@ -273,7 +273,7 @@ modrinth {
 	uploadFile.set(tasks.remapJar.get())
 	loaders.set(listOf("fabric", "quilt"))
 	gameVersions.set(listOf(mcVersion))
-	versionType.set(getVersionType())
+	versionType.set(fetchVersionType())
 	syncBodyFrom.set(parseReadme(project))
 	dependencies.set(
 		listOf(
@@ -320,7 +320,7 @@ tasks.register<TaskPublishCurseForge>("curseforge") {
 	}
 
 	val mainFile = upload(project.property("curseforge_id"), tasks.remapJar.get())
-	mainFile.releaseType = getVersionType()
+	mainFile.releaseType = fetchVersionType()
 	mainFile.addGameVersion(mcVersion)
 	mainFile.addModLoader("Fabric", "Quilt")
 	mainFile.addJavaVersion("Java 21", "Java 22")
