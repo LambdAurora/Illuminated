@@ -21,7 +21,7 @@ You need to install LambDynamicLights ([Modrinth page](https://modrinth.com/mod/
 <!-- modrinth_exclude.start -->
 [![trailer](./assets/trailer.png)](https://youtu.be/xew0s2TwZ84?list=LL&t=161)
 <!-- modrinth_exclude.end -->
-<!-- modrinth_only.start <iframe src="https://www.youtube.com/embed/xew0s2TwZ84/" width="560" height="315" allowfullscreen="allowfullscreen" style="border: 3px solid #00ffcc; border-radius: 10px;"></iframe> modrinth_only.end -->
+<!-- modrinth_only.start <iframe src="https://www.youtube.com/embed/xew0s2TwZ84?start=161" width="560" height="315" allowfullscreen="allowfullscreen" style="border: 3px solid #00ffcc; border-radius: 10px;"></iframe> modrinth_only.end -->
 
 ## ✅ Features
 
