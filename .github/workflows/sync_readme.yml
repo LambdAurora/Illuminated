@@ -1,0 +1,24 @@
+name: "Sync README"
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "Set up Java"
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+      - name: "Set up Gradle"
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: "Build with Gradle"
+        run: ./gradlew modrinthSyncBody --parallel --stacktrace
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}

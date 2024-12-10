@@ -37,7 +37,6 @@
 			"faces": {
 				"north": {"uv": [15, 14, 16, 16], "texture": "#flashlight"},
 				"east": {"uv": [15, 14, 16, 16], "texture": "#flashlight"},
-				"south": {"texture": "#missing"},
 				"west": {"uv": [15, 14, 16, 16], "texture": "#flashlight"},
 				"up": {"uv": [15, 14, 16, 15], "texture": "#flashlight"},
 				"down": {"uv": [15, 14, 16, 15], "texture": "#flashlight"}

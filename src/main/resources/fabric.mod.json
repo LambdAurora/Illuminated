@@ -26,7 +26,7 @@
 	},
 	"license": "Lambda License",
 	"icon": "assets/illuminated/textures/item/flashlight.png",
-	"environment": "client",
+	"environment": "*",
 	"entrypoints": {
 		"client": [
 			"dev.lambdaurora.illuminated.client.IlluminatedClient::INSTANCE"
