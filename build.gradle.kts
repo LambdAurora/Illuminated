@@ -19,7 +19,7 @@ import java.nio.file.Path
 import java.util.regex.Pattern
 
 plugins {
-	id("fabric-loom").version("1.9.+")
+	id("fabric-loom").version("1.10.+")
 	id("dev.yumi.gradle.licenser").version("2.+")
 	id("com.modrinth.minotaur").version("2.+")
 	id("net.darkhax.curseforgegradle").version("1.1.+")
@@ -253,13 +253,11 @@ fun fetchChangelog(project: Project): String? {
 	if (matcher != null) {
 		var changelogContent = matcher.groupValues[1]
 
-		val changelogLines = changelogText.split("\n")
-		val linkRefRegex = "^\\[([A-z\\d _\\-/+.]+)]: ".toRegex()
-		for (i in changelogLines.size - 1 downTo 0) {
-			val line = changelogLines[i]
+		val changelogLines = changelogText.substring(matcher.range.last).split("\n")
+		val linkRefRegex = "^\\[([A-z\\d _\\-/+.#]+)]: .+$".toRegex()
+		for (line in changelogLines) {
 			if (line matches linkRefRegex)
 				changelogContent += "\n" + line
-			else break
 		}
 		return changelogContent
 	} else {
@@ -278,7 +276,9 @@ modrinth {
 	dependencies.set(
 		listOf(
 			ModDependency("P7dR8mSH", "required"), // Fabric API
-			ModDependency("yBW8D80W", "required")  // LambDynamicLights
+			ModDependency("yBW8D80W", "required"), // LambDynamicLights
+			ModDependency("reCfnRvJ", "incompatible"),
+			ModDependency("PxQSWIcD", "incompatible")
 		)
 	)
 
