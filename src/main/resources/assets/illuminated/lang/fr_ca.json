@@ -1,3 +1,4 @@
 {
-	"item.illuminated.flashlight": "Lampe torche"
+	"item.illuminated.flashlight": "Lampe torche",
+	"subtitles.illuminated.item.flashlight.toggle": "Interrupteur de lampe torche"
 }
