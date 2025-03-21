@@ -39,8 +39,7 @@ public class Illuminated implements ModInitializer {
 
 	public static final Item FLASHLIGHT = Items.registerItem(
 			ResourceKey.of(Registries.ITEM, id("flashlight")),
-			FlashlightItem::new,
-			new Item.Properties().component(ON, false)
+			new FlashlightItem(new Item.Properties().component(ON, false))
 	);
 
 	@Override

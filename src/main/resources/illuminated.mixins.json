@@ -5,7 +5,9 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"client.EntityRendererMixin",
-		"client.LivingEntityMixin"
+		"client.ItemRendererMixin",
+		"client.LivingEntityMixin",
+		"client.ModelBakeryMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

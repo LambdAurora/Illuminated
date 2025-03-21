@@ -27,7 +27,7 @@ public class EntityRendererMixin {
 					target = "Lnet/minecraft/client/renderer/entity/EntityRenderer;getBlockLightLevel(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;)I"
 			)
 	)
-	private int illuminated$onForceEntityLitUp(EntityRenderer<?, ?> instance, Entity entity, BlockPos pos, Operation<Integer> original) {
+	private int illuminated$onForceEntityLitUp(EntityRenderer<?> instance, Entity entity, BlockPos pos, Operation<Integer> original) {
 		if (Illuminated.isHoldingPoweredFlashlight(entity)) {
 			return 15;
 		}

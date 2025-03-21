@@ -6,10 +6,18 @@
 		"RI "
 	],
 	"key": {
-		"I": "minecraft:iron_ingot",
-		"G": "minecraft:glass_pane",
-		"C": "minecraft:glowstone_dust",
-		"R": "minecraft:redstone"
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+		"G": {
+			"item": "minecraft:glass_pane"
+		},
+		"C": {
+			"item": "minecraft:glowstone_dust"
+		},
+		"R": {
+			"item": "minecraft:redstone"
+		}
 	},
 	"result": {
 		"id": "illuminated:flashlight",

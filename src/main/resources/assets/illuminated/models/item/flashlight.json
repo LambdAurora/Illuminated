@@ -1,0 +1,14 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "illuminated:item/flashlight_off"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"illuminated:on": 1
+			},
+			"model": "illuminated:item/flashlight/on"
+		}
+	]
+}

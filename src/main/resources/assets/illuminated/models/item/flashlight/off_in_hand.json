@@ -76,5 +76,13 @@
 			"translation": [0, 0, -1.5],
 			"scale": [1.5, 1.5, 1.5]
 		}
-	}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"illuminated:on": 1
+			},
+			"model": "illuminated:item/flashlight/on_in_hand"
+		}
+	]
 }
