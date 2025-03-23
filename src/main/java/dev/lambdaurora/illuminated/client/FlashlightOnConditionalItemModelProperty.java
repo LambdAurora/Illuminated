@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.item.properties.conditional.ConditionalItem
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -25,12 +26,15 @@ public record FlashlightOnConditionalItemModelProperty() implements ConditionalI
 	public static final MapCodec<FlashlightOnConditionalItemModelProperty> MAP_CODEC = MapCodec.unit(new FlashlightOnConditionalItemModelProperty());
 
 	@Override
-	public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int i, ItemDisplayContext context) {
+	public boolean get(
+			ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed,
+			ItemDisplayContext context
+	) {
 		return stack.getOrDefault(Illuminated.ON, false);
 	}
 
 	@Override
-	public MapCodec<FlashlightOnConditionalItemModelProperty> type() {
+	public @NotNull MapCodec<FlashlightOnConditionalItemModelProperty> type() {
 		return MAP_CODEC;
 	}
 }
