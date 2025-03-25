@@ -126,14 +126,14 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 				Math.abs(entity.getX() - this.prevX) >= 0.1
 						|| Math.abs(entity.getY() - this.prevY) >= 0.1
 						|| Math.abs(entity.getZ() - this.prevZ) >= 0.1
-						|| Math.abs(entity.getXRot() - this.prevYaw) >= 0.1
-						|| Math.abs(entity.getYRot() - this.prevPitch) >= 0.1
+						|| Math.abs(entity.getYaw() - this.prevYaw) >= 0.1
+						|| Math.abs(entity.getPitch() - this.prevPitch) >= 0.1
 		) {
 			this.prevX = entity.getX();
 			this.prevY = entity.getY();
 			this.prevZ = entity.getZ();
-			this.prevYaw = entity.getXRot();
-			this.prevPitch = entity.getYRot();
+			this.prevYaw = entity.getYaw();
+			this.prevPitch = entity.getPitch();
 
 			this.computeMatrices();
 
@@ -145,9 +145,9 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 
 	private void computeMatrices() {
 		var matrix = new Matrix3d();
-		matrix.rotate(Axis.ZP.rotationDegrees(entity.getXRot()));  // rotat
+		matrix.rotate(Axis.ZP.rotationDegrees(entity.getPitch()));  // rotat
 		matrix.rotate(Axis.ZN.rotation(MathHelper.HALF_PI));       // rotat but again
-		matrix.rotate(Axis.YP.rotationDegrees(entity.getYRot()));  // rotat a third time
+		matrix.rotate(Axis.YP.rotationDegrees(entity.getYaw()));  // rotat a third time
 		matrix.rotate(Axis.YP.rotation(MathHelper.HALF_PI));       // THE ULTIMATE ROTAT
 		this.rotationMatrix = matrix;
 		this.inverseRotationMatrix = matrix.invert(new Matrix3d());

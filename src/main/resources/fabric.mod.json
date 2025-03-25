@@ -46,7 +46,7 @@
 		"fabric": ">=0.119.3+1.21.5",
 		"minecraft": "~1.21.5-",
 		"java": ">=21",
-		"lambdynlights": "^4.2.1-"
+		"lambdynlights": "^4.2.3"
 	},
 	"custom": {
 		"modmenu": {
