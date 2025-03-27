@@ -83,7 +83,7 @@ license {
 
 modrinth {
 	projectId = project.property("modrinth_id") as String
-	versionName = "Illuminated ${project.version} (${McVersionLookup.getVersionTag(mcVersion)})"
+	versionName = "Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})"
 	uploadFile.set(tasks.remapJar.get())
 	loaders.set(listOf("fabric", "quilt"))
 	gameVersions.set(listOf(mcVersion))
@@ -146,7 +146,7 @@ tasks.register<TaskPublishCurseForge>("curseforge") {
 	mainFile.addJavaVersion("Java 21", "Java 22")
 	mainFile.addEnvironment("Client")
 
-	mainFile.displayName = "Illuminated ${project.version} (${McVersionLookup.getVersionTag(mcVersion)})"
+	mainFile.displayName = "Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})"
 	mainFile.addRequirement("fabric-api")
 	mainFile.addRequirement("lambdynamiclights")
 	mainFile.addOptional("modmenu")
