@@ -28,25 +28,27 @@
 	"icon": "assets/illuminated/textures/item/flashlight.png",
 	"environment": "*",
 	"entrypoints": {
-		"client": [
+		"yumi:client_init": [
 			"dev.lambdaurora.illuminated.client.IlluminatedClient::INSTANCE"
 		],
-		"main": [
+		"yumi:init": [
 			"dev.lambdaurora.illuminated.Illuminated"
 		],
-		"dynamiclights": [
+		"lambdynlights:initializer": [
 			"dev.lambdaurora.illuminated.client.IlluminatedClient::INSTANCE"
 		]
 	},
+	"accessWidener": "illuminated.accesswidener",
 	"mixins": [
 		"illuminated.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.10",
-		"fabric": ">=0.119.3+1.21.5",
-		"minecraft": "~1.21.5-",
-		"java": ">=21",
-		"lambdynlights": "^4.2.3"
+		"fabricloader": ">=0.18.4",
+		"fabric-api": ">=0.140.0+26.1",
+		"minecraft": "~26.1-",
+		"java": ">=25",
+		"yumi_mc_core": ">=1.0.0-beta.2",
+		"lambdynlights": "^4.10.0"
 	},
 	"custom": {
 		"modmenu": {

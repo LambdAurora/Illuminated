@@ -12,7 +12,8 @@ package dev.lambdaurora.illuminated.client;
 import dev.lambdaurora.illuminated.Illuminated;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsContext;
 import dev.lambdaurora.lambdynlights.api.DynamicLightsInitializer;
-import net.fabricmc.api.ClientModInitializer;
+import dev.yumi.mc.core.api.ModContainer;
+import dev.yumi.mc.core.api.entrypoint.client.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -22,13 +23,15 @@ import net.minecraft.world.entity.LivingEntity;
 @Environment(EnvType.CLIENT)
 public class IlluminatedClient implements ClientModInitializer, DynamicLightsInitializer {
 	public static final IlluminatedClient INSTANCE = new IlluminatedClient();
-	private DynamicLightsContext context;
 
 	@Override
-	public void onInitializeClient() {
+	public void onInitializeClient(ModContainer mod) {
 		ConditionalItemModelProperties.ID_MAPPER.put(Illuminated.id("on"), FlashlightOnConditionalItemModelProperty.MAP_CODEC);
+	}
 
-		ClientTickEvents.START_WORLD_TICK.register(level -> {
+	@Override
+	public void onInitializeDynamicLights(DynamicLightsContext context) {
+		ClientTickEvents.START_LEVEL_TICK.register(level -> {
 			for (var entity : level.entitiesForRendering()) {
 				if (entity instanceof LivingEntity living) {
 					var holder = (FlashlightHolder) living;
@@ -37,22 +40,17 @@ public class IlluminatedClient implements ClientModInitializer, DynamicLightsIni
 						// Flashlight!
 						if (holder.getFlashlightLightSource() == null) {
 							holder.setFlashlightBehavior(new FlashlightLightBehavior(living));
-							this.context.dynamicLightBehaviorManager().add(holder.getFlashlightLightSource());
+							context.dynamicLightBehaviorManager().add(holder.getFlashlightLightSource());
 						}
 					} else {
 						// Ahw...
 						if (holder.getFlashlightLightSource() != null) {
-							this.context.dynamicLightBehaviorManager().remove(holder.getFlashlightLightSource());
+							context.dynamicLightBehaviorManager().remove(holder.getFlashlightLightSource());
 							holder.setFlashlightBehavior(null);
 						}
 					}
 				}
 			}
 		});
-	}
-
-	@Override
-	public void onInitializeDynamicLights(DynamicLightsContext context) {
-		this.context = context;
 	}
 }

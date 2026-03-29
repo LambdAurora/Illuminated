@@ -1,11 +1,13 @@
 import com.modrinth.minotaur.dependencies.ModDependency
 import dev.lambdaurora.mcdev.api.McVersionLookup
 import dev.lambdaurora.mcdev.api.ModUtils
+import dev.lambdaurora.mcdev.api.ModVersionDependency
+import dev.lambdaurora.mcdev.task.packaging.PackageModrinthTask
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
-	id("fabric-loom").version("1.10.+")
-	id("dev.lambdaurora.mcdev").version("1.0.+")
+	id("net.fabricmc.fabric-loom").version("1.15.+")
+	id("dev.lambdaurora.mcdev").version("2.0.+")
 	id("dev.yumi.gradle.licenser").version("2.+")
 	id("com.modrinth.minotaur").version("2.+")
 	id("net.darkhax.curseforgegradle").version("1.1.+")
@@ -18,7 +20,7 @@ val mcVersion = libs.versions.minecraft.get()
 val VERSION = project.property("mod_version") as String
 version = "$VERSION+$mcVersion"
 
-val targetJavaVersion = 21
+val targetJavaVersion = 25
 
 repositories {
 	mavenLocal()
@@ -32,21 +34,19 @@ repositories {
 	}
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/illuminated.accesswidener")
+}
+
 dependencies {
 	minecraft(libs.minecraft)
-	@Suppress("UnstableApiUsage")
-	mappings(lambdamcdev.layered {
-		officialMojangMappings()
-		// Parchment is currently broken when used with the hacked mojmap layer due to remapping shenanigans.
-		//parchment("org.parchmentmc.data:parchment-${mcVersion}:${project.property("parchment_mappings")}@zip")
-		mappings("dev.lambdaurora:yalmm:${mcVersion}+build.${libs.versions.mappings.yalmm.get()}")
-	})
-	modImplementation(libs.fabric.loader)
+	implementation(libs.fabric.loader)
 
-	modImplementation(libs.fabric.api)
+	implementation(libs.fabric.api)
+	implementation(libs.yumi.mc.foundation)
 
-	modCompileOnly(libs.lambdynamiclights.api)
-	modLocalRuntime(libs.lambdynamiclights.runtime)
+	compileOnly(libs.lambdynamiclights.api)
+	localRuntime(libs.lambdynamiclights.runtime)
 }
 
 java {
@@ -67,7 +67,7 @@ tasks.processResources {
 	inputs.property("version", project.version)
 
 	filesMatching("fabric.mod.json") {
-		expand("version" to inputs.properties["version"])
+		expand("version" to (inputs.properties["version"] as String))
 	}
 }
 
@@ -81,16 +81,37 @@ license {
 	rule(rootProject.file("metadata/HEADER"))
 }
 
+val packageModrinth by tasks.registering(PackageModrinthTask::class) {
+	this.group = "publishing"
+	this.versionType.set(ModUtils.getVersionType(VERSION, mcVersion))
+	this.versionName.set("Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})")
+	this.gameVersions.set(listOf(mcVersion))
+	this.loaders.set(listOf("fabric", "quilt"))
+	this.dependencies.set(
+		listOf(
+			ModVersionDependency("P7dR8mSH", ModVersionDependency.Type.REQUIRED), // Fabric API
+			ModVersionDependency("yBW8D80W", ModVersionDependency.Type.REQUIRED), // LambDynamicLights
+			ModVersionDependency("reCfnRvJ", ModVersionDependency.Type.INCOMPATIBLE),
+			ModVersionDependency("PxQSWIcD", ModVersionDependency.Type.INCOMPATIBLE)
+		)
+	)
+	this.changelog.set(ModUtils.fetchChangelog(project, VERSION))
+	this.readme.set(ModUtils.parseReadme(
+		project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.1/\$2"
+	))
+	this.files.setFrom(tasks.jar)
+}
+
 modrinth {
 	projectId = project.property("modrinth_id") as String
 	versionName = "Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})"
-	uploadFile.set(tasks.remapJar.get())
+	uploadFile.set(tasks.jar.get())
 	loaders.set(listOf("fabric", "quilt"))
 	gameVersions.set(listOf(mcVersion))
 	versionType.set(ModUtils.fetchVersionType(VERSION, mcVersion))
 	syncBodyFrom.set(
 		ModUtils.parseReadme(
-			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/1.21.4/\$2"
+			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.1/\$2"
 		)
 	)
 	dependencies.set(
@@ -139,7 +160,7 @@ tasks.register<TaskPublishCurseForge>("curseforge") {
 		return@register
 	}
 
-	val mainFile = upload(project.property("curseforge_id"), tasks.remapJar.get())
+	val mainFile = upload(project.property("curseforge_id"), tasks.jar.get())
 	mainFile.releaseType = ModUtils.fetchVersionType(VERSION, mcVersion)
 	mainFile.addGameVersion(McVersionLookup.getCurseForgeEquivalent(mcVersion))
 	mainFile.addModLoader("Fabric", "Quilt")

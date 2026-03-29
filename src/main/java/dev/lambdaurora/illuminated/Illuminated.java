@@ -11,8 +11,9 @@ package dev.lambdaurora.illuminated;
 
 import com.mojang.serialization.Codec;
 import dev.lambdaurora.illuminated.item.FlashlightItem;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import dev.yumi.mc.core.api.ModContainer;
+import dev.yumi.mc.core.api.entrypoint.ModInitializer;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,20 +39,20 @@ public class Illuminated implements ModInitializer {
 	public static final SoundEvent FLASHLIGHT_TOGGLE_SOUND = SoundEvent.createVariableRangeEvent(id("item.flashlight.toggle"));
 
 	public static final Item FLASHLIGHT = Items.registerItem(
-			ResourceKey.of(Registries.ITEM, id("flashlight")),
+			ResourceKey.create(Registries.ITEM, id("flashlight")),
 			FlashlightItem::new,
 			new Item.Properties().component(ON, false)
 	);
 
 	@Override
-	public void onInitialize() {
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
-			entries.addAfter(Items.SPYGLASS, FLASHLIGHT);
+	public void onInitialize(ModContainer mod) {
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> {
+			entries.insertAfter(Items.SPYGLASS, FLASHLIGHT);
 		});
 	}
 
 	public static Identifier id(String path) {
-		return Identifier.of(NAMESPACE, path);
+		return Identifier.fromNamespaceAndPath(NAMESPACE, path);
 	}
 
 	public static boolean isHoldingPoweredFlashlight(Entity entity) {

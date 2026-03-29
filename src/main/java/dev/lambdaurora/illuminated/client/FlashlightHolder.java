@@ -11,10 +11,11 @@ package dev.lambdaurora.illuminated.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jspecify.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public interface FlashlightHolder {
-	FlashlightLightBehavior getFlashlightLightSource();
+	@Nullable FlashlightLightBehavior getFlashlightLightSource();
 
-	void setFlashlightBehavior(FlashlightLightBehavior flashlightBehavior);
+	void setFlashlightBehavior(@Nullable FlashlightLightBehavior flashlightBehavior);
 }

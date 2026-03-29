@@ -1,16 +1,16 @@
 [versions]
-minecraft = "1.21.5"
-fabric-loader = "0.16.10"
-fabric-api = "0.119.5+1.21.5"
-mappings-yalmm = "14"
-mappings-parchment = "2024.07.28"
+minecraft = "26.1"
+fabric-loader = "0.18.4"
+fabric-api = "0.144.0+26.1"
 
-lambdynamiclights = "4.2.3+1.21.5"
+yumi-mc-foundation = "1.0.0-beta.2+26.1"
+lambdynamiclights = "4.10.0+26.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
 
+yumi-mc-foundation = { module = "dev.yumi.mc.core:yumi-mc-foundation", version.ref = "yumi-mc-foundation" }
 lambdynamiclights-api = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api", version.ref = "lambdynamiclights" }
 lambdynamiclights-runtime = { module = "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime", version.ref = "lambdynamiclights" }

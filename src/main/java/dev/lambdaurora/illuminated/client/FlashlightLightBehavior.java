@@ -14,9 +14,8 @@ import dev.lambdaurora.lambdynlights.api.behavior.DynamicLightBehavior;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 import org.joml.Matrix3d;
 import org.joml.Vector3d;
@@ -63,11 +62,11 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 		double intensity = DEPTH / Math.pow(distance, 1.5);
 		double light = intensity * 15.F;
 
-		return Math.clamp(MathHelper.smoothstep(sdf), 0.F, 1.F) * light;
+		return Math.clamp(Mth.smoothstep(sdf), 0.F, 1.F) * light;
 	}
 
 	@Override
-	public @NotNull BoundingBox getBoundingBox() {
+	public BoundingBox getBoundingBox() {
 		// To calculate the bounding box, we create a cuboid in entity space encapsulating the entire source, then transform it to world space.
 		// We then calculate the larger xyz aligned cuboid encapsulating the first one by taking the minimum and maximum of each x and y coordinate.
 		var horizontalValues = new double[]{-RADIUS, RADIUS};
@@ -111,12 +110,12 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 		}
 
 		return new BoundingBox(
-				MathHelper.floor(minX),
-				MathHelper.floor(minY),
-				MathHelper.floor(minZ),
-				MathHelper.ceil(maxX),
-				MathHelper.ceil(maxY),
-				MathHelper.ceil(maxZ)
+				Mth.floor(minX),
+				Mth.floor(minY),
+				Mth.floor(minZ),
+				Mth.ceil(maxX),
+				Mth.ceil(maxY),
+				Mth.ceil(maxZ)
 		);
 	}
 
@@ -126,14 +125,14 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 				Math.abs(entity.getX() - this.prevX) >= 0.1
 						|| Math.abs(entity.getY() - this.prevY) >= 0.1
 						|| Math.abs(entity.getZ() - this.prevZ) >= 0.1
-						|| Math.abs(entity.getYaw() - this.prevYaw) >= 0.1
-						|| Math.abs(entity.getPitch() - this.prevPitch) >= 0.1
+						|| Math.abs(entity.getYRot() - this.prevYaw) >= 0.1
+						|| Math.abs(entity.getXRot() - this.prevPitch) >= 0.1
 		) {
 			this.prevX = entity.getX();
 			this.prevY = entity.getY();
 			this.prevZ = entity.getZ();
-			this.prevYaw = entity.getYaw();
-			this.prevPitch = entity.getPitch();
+			this.prevYaw = entity.getYRot();
+			this.prevPitch = entity.getXRot();
 
 			this.computeMatrices();
 
@@ -145,10 +144,10 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 
 	private void computeMatrices() {
 		var matrix = new Matrix3d();
-		matrix.rotate(Axis.ZP.rotationDegrees(entity.getPitch()));  // rotat
-		matrix.rotate(Axis.ZN.rotation(MathHelper.HALF_PI));       // rotat but again
-		matrix.rotate(Axis.YP.rotationDegrees(entity.getYaw()));  // rotat a third time
-		matrix.rotate(Axis.YP.rotation(MathHelper.HALF_PI));       // THE ULTIMATE ROTAT
+		matrix.rotate(Axis.ZP.rotationDegrees(entity.getXRot()));  // rotat
+		matrix.rotate(Axis.ZN.rotation(Mth.HALF_PI));       // rotat but again
+		matrix.rotate(Axis.YP.rotationDegrees(entity.getYRot()));  // rotat a third time
+		matrix.rotate(Axis.YP.rotation(Mth.HALF_PI));       // THE ULTIMATE ROTAT
 		this.rotationMatrix = matrix;
 		this.inverseRotationMatrix = matrix.invert(new Matrix3d());
 	}

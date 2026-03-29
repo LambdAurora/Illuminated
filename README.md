@@ -1,7 +1,7 @@
 # Illuminated
 
 <!-- modrinth_exclude.start -->
-![Java 21](https://img.shields.io/badge/language-Java%2021-9115ff.svg?style=flat-square)
+![Java 25](https://img.shields.io/badge/language-Java%2025-9115ff.svg?style=flat-square)
 [![GitHub license](https://img.shields.io/badge/license-Lambda%20License-c7136d?style=flat-square)](https://raw.githubusercontent.com/LambdAurora/Illuminated/1.21.4/LICENSE)
 ![Environment: Both](https://img.shields.io/badge/environment-both-1976d2?style=flat-square)
 [![Mod loader: Fabric]][fabric]

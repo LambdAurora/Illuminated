@@ -15,7 +15,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 public class FlashlightItem extends Item {
 	public FlashlightItem(Properties properties) {
@@ -23,7 +22,7 @@ public class FlashlightItem extends Item {
 	}
 
 	@Override
-	public @NotNull InteractionResult use(Level level, Player player, InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		var stack = player.getItemInHand(hand);
 
 		stack.set(Illuminated.ON, !stack.getOrDefault(Illuminated.ON, false));
