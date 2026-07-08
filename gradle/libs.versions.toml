@@ -1,10 +1,10 @@
 [versions]
-minecraft = "26.1"
-fabric-loader = "0.18.4"
-fabric-api = "0.144.0+26.1"
+minecraft = "26.2"
+fabric-loader = "0.19.3"
+fabric-api = "0.154.0+26.2"
 
-yumi-mc-foundation = "1.0.0-beta.2+26.1"
-lambdynamiclights = "4.10.0+26.1"
+yumi-mc-foundation = "1.1.1+26.2"
+lambdynamiclights = "4.12.2+26.2"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }

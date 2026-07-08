@@ -6,9 +6,9 @@ import dev.lambdaurora.mcdev.task.packaging.PackageModrinthTask
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
-	id("net.fabricmc.fabric-loom").version("1.15.+")
-	id("dev.lambdaurora.mcdev").version("2.0.+")
-	id("dev.yumi.gradle.licenser").version("2.+")
+	id("net.fabricmc.fabric-loom").version("1.17.+")
+	id("dev.lambdaurora.mcdev").version("2.2.+")
+	id("dev.yumi.gradle.licenser").version("4.+")
 	id("com.modrinth.minotaur").version("2.+")
 	id("net.darkhax.curseforgegradle").version("1.1.+")
 }
@@ -28,9 +28,17 @@ repositories {
 		name = "TerraformersMC"
 		url = uri("https://maven.terraformersmc.com/releases")
 	}
-	maven {
-		name = "Gegy"
-		url = uri("https://maven.gegy.dev/releases/")
+	exclusiveContent {
+		filter {
+			includeGroupAndSubgroups("dev.lambdaurora")
+			includeGroup("io.github.queerbric")
+		}
+		forRepository {
+			maven {
+				name = "Gegy"
+				url = uri("https://maven.gegy.dev/releases/")
+			}
+		}
 	}
 }
 
@@ -79,9 +87,11 @@ tasks.jar {
 
 license {
 	rule(rootProject.file("metadata/HEADER"))
+
+	include("**/*.java")
 }
 
-val packageModrinth by tasks.registering(PackageModrinthTask::class) {
+val packageModrinthTask = tasks.register<PackageModrinthTask>("packageModrinth") {
 	this.group = "publishing"
 	this.versionType.set(ModUtils.getVersionType(VERSION, mcVersion))
 	this.versionName.set("Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})")
@@ -96,9 +106,11 @@ val packageModrinth by tasks.registering(PackageModrinthTask::class) {
 		)
 	)
 	this.changelog.set(ModUtils.fetchChangelog(project, VERSION))
-	this.readme.set(ModUtils.parseReadme(
-		project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.1/\$2"
-	))
+	this.readme.set(
+		ModUtils.parseReadme(
+			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.2/\$2"
+		)
+	)
 	this.files.setFrom(tasks.jar)
 }
 
@@ -111,7 +123,7 @@ modrinth {
 	versionType.set(ModUtils.fetchVersionType(VERSION, mcVersion))
 	syncBodyFrom.set(
 		ModUtils.parseReadme(
-			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.1/\$2"
+			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.2/\$2"
 		)
 	)
 	dependencies.set(
