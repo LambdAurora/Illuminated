@@ -62,7 +62,7 @@ public class FlashlightLightBehavior implements DynamicLightBehavior {
 		double intensity = DEPTH / Math.pow(distance, 1.5);
 		double light = intensity * 15.F;
 
-		return Math.clamp(Mth.smoothstep(sdf), 0.F, 1.F) * light;
+		return Math.clamp(Mth.smoothstep((float) sdf), 0.0, 1.0) * light;
 	}
 
 	@Override

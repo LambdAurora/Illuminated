@@ -20,3 +20,7 @@
 ## 1.2.0
 
 - Updated to Minecraft 26.2.
+
+## 1.3.0
+
+- Updated to Minecraft 26.3.

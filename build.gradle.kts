@@ -1,16 +1,13 @@
-import com.modrinth.minotaur.dependencies.ModDependency
+import dev.lambdaurora.mcdev.api.EnvironmentType
 import dev.lambdaurora.mcdev.api.McVersionLookup
 import dev.lambdaurora.mcdev.api.ModUtils
 import dev.lambdaurora.mcdev.api.ModVersionDependency
 import dev.lambdaurora.mcdev.task.packaging.PackageModrinthTask
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
 	id("net.fabricmc.fabric-loom").version("1.17.+")
-	id("dev.lambdaurora.mcdev").version("2.2.+")
+	id("dev.lambdaurora.mcdev").version("3.0.1+")
 	id("dev.yumi.gradle.licenser").version("4.+")
-	id("com.modrinth.minotaur").version("2.+")
-	id("net.darkhax.curseforgegradle").version("1.1.+")
 }
 
 group = project.property("maven_group") as String
@@ -97,6 +94,7 @@ val packageModrinthTask = tasks.register<PackageModrinthTask>("packageModrinth")
 	this.versionName.set("Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})")
 	this.gameVersions.set(listOf(mcVersion))
 	this.loaders.set(listOf("fabric", "quilt"))
+	this.environment.set(EnvironmentType.CLIENT_AND_SERVER)
 	this.dependencies.set(
 		listOf(
 			ModVersionDependency("P7dR8mSH", ModVersionDependency.Type.REQUIRED), // Fabric API
@@ -108,83 +106,8 @@ val packageModrinthTask = tasks.register<PackageModrinthTask>("packageModrinth")
 	this.changelog.set(ModUtils.fetchChangelog(project, VERSION))
 	this.readme.set(
 		ModUtils.parseReadme(
-			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.2/\$2"
+			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.3/\$2"
 		)
 	)
 	this.files.setFrom(tasks.jar)
-}
-
-modrinth {
-	projectId = project.property("modrinth_id") as String
-	versionName = "Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})"
-	uploadFile.set(tasks.jar.get())
-	loaders.set(listOf("fabric", "quilt"))
-	gameVersions.set(listOf(mcVersion))
-	versionType.set(ModUtils.fetchVersionType(VERSION, mcVersion))
-	syncBodyFrom.set(
-		ModUtils.parseReadme(
-			project, "https://raw.githubusercontent.com/LambdAurora/Illuminated/26.2/\$2"
-		)
-	)
-	dependencies.set(
-		listOf(
-			ModDependency("P7dR8mSH", "required"), // Fabric API
-			ModDependency("yBW8D80W", "required"), // LambDynamicLights
-			ModDependency("reCfnRvJ", "incompatible"),
-			ModDependency("PxQSWIcD", "incompatible")
-		)
-	)
-
-	// Changelog fetching
-	val changelogContent = ModUtils.fetchChangelog(project, VERSION)
-
-	if (changelogContent != null) {
-		changelog.set(changelogContent)
-	} else {
-		afterEvaluate {
-			tasks.modrinth.get().isEnabled = false
-		}
-	}
-}
-
-tasks.modrinth {
-	dependsOn(tasks.modrinthSyncBody)
-}
-
-tasks.register<TaskPublishCurseForge>("curseforge") {
-	this.group = "publishing"
-
-	val token = System.getenv("CURSEFORGE_TOKEN")
-	if (token != null) {
-		this.apiToken = token
-	} else {
-		this.isEnabled = false
-		return@register
-	}
-
-	// Changelog fetching
-	var changelogContent = ModUtils.fetchChangelog(project, VERSION)
-
-	if (changelogContent != null) {
-		changelogContent = "Changelog:\n\n${changelogContent}"
-	} else {
-		this.isEnabled = false
-		return@register
-	}
-
-	val mainFile = upload(project.property("curseforge_id"), tasks.jar.get())
-	mainFile.releaseType = ModUtils.fetchVersionType(VERSION, mcVersion)
-	mainFile.addGameVersion(McVersionLookup.getCurseForgeEquivalent(mcVersion))
-	mainFile.addModLoader("Fabric", "Quilt")
-	mainFile.addJavaVersion("Java 21", "Java 22")
-	mainFile.addEnvironment("Client")
-
-	mainFile.displayName = "Illuminated $VERSION (${McVersionLookup.getVersionTag(mcVersion)})"
-	mainFile.addRequirement("fabric-api")
-	mainFile.addRequirement("lambdynamiclights")
-	mainFile.addOptional("modmenu")
-	mainFile.addIncompatibility("optifabric")
-
-	mainFile.changelogType = "markdown"
-	mainFile.changelog = changelogContent
 }
