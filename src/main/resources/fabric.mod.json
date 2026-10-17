@@ -44,11 +44,11 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"fabric-api": ">=0.154.0+26.2",
-		"minecraft": "~26.2-",
+		"fabric-api": ">=0.144.0+26.1",
+		"minecraft": "~26.1-",
 		"java": ">=25",
 		"yumi_mc_core": ">=1.1.3",
-		"lambdynlights": "^4.12.0"
+		"lambdynlights": "^4.11.2"
 	},
 	"custom": {
 		"modmenu": {
