@@ -43,7 +43,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipes": "illuminated:flashlight"
+				"recipe": "illuminated:flashlight"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
