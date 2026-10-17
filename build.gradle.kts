@@ -49,6 +49,7 @@ dependencies {
 
 	implementation(libs.fabric.api)
 	implementation(libs.yumi.mc.foundation)
+	include(libs.yumi.mc.foundation)
 
 	compileOnly(libs.lambdynamiclights.api)
 	localRuntime(libs.lambdynamiclights.runtime)

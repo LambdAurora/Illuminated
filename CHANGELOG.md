@@ -17,10 +17,22 @@
 
 - Updated to Minecraft 26.1.
 
+### 1.1.1
+
+- Fixed missing Yumi MC Foundation library for dedicated server runs.
+
 ## 1.2.0
 
 - Updated to Minecraft 26.2.
 
+### 1.2.1
+
+- Fixed missing Yumi MC Foundation library for dedicated server runs.
+
 ## 1.3.0
 
 - Updated to Minecraft 26.3.
+
+### 1.3.1
+
+- Fixed missing Yumi MC Foundation library for dedicated server runs.
